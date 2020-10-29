@@ -18,3 +18,4 @@ settings.gradle
 /.recommenders/
 /out/
 fabio_marsiaj_sandbox.iml
+.DS_Store
