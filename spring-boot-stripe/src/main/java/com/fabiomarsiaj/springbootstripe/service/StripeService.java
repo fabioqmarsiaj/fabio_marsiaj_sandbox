@@ -3,9 +3,10 @@ package com.fabiomarsiaj.springbootstripe.service;
 import com.fabiomarsiaj.springbootstripe.domain.PaymentRequest;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
-import com.stripe.model.Charge;
 import com.stripe.model.PaymentIntent;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,13 +23,16 @@ public class StripeService {
         Stripe.apiKey = secretKey;
     }
 
-    public Charge charge(PaymentRequest paymentRequest)
+    public PaymentIntent charge(PaymentRequest paymentRequest)
             throws StripeException {
+        List<Object> paymentMethodTypes = new ArrayList<>();
+        paymentMethodTypes.add("card");
+
         Map<String, Object> params = new HashMap<>();
         params.put("amount", paymentRequest.getAmount());
         params.put("currency", paymentRequest.getCurrency());
         params.put("description", paymentRequest.getDescription());
-        params.put("source", paymentRequest.getStripeToken());
-        return Charge.create(params);
+        params.put("payment_method_types", paymentMethodTypes);
+        return PaymentIntent.create(params);
     }
 }
