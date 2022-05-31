@@ -20,8 +20,9 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compile group: 'com.stripe', name: 'stripe-java', version: '20.24.0'
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.3.4.RELEASE'
+	implementation 'com.stripe:stripe-java:20.124.0'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.7.0'
+
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
