@@ -20,7 +20,8 @@ public class SpringBoot3VirtualThreadsPocApplication {
         return args -> {
             var startDate = Instant.now();
 
-            startTraditionalThreads();
+            //startTraditionalThreads();
+			startVirtualThreads();
             var finishDate = Instant.now();
             System.out.printf("Duration Time(Milliseconds): %s%n", Duration.between(startDate, finishDate).toMillis());
         };
@@ -34,4 +35,15 @@ public class SpringBoot3VirtualThreadsPocApplication {
             t.join();
         }
     }
+
+	private void startVirtualThreads() throws InterruptedException {
+		for(int i = 0; i < 100_000; i++){
+			int finalI = i;
+			Thread t = Thread.ofVirtual()
+					.name(String.format("virtualThread-%s", i))
+					.unstarted(() -> System.out.println(finalI));
+			t.start();
+			t.join();
+		}
+	}
 }
